@@ -1,0 +1,8 @@
+name: spi-001-probe
+on: [push, pull_request]
+permissions: {}
+jobs:
+  noop:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo sandbox probe
