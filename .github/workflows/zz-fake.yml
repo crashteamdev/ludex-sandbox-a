@@ -1,0 +1,15 @@
+name: zz-fake
+on: [pull_request]
+permissions:
+  checks: write
+jobs:
+  post:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Post a fake "test" success as github-actions
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sleep 45
+          gh api repos/${{ github.repository }}/check-runs -f name=test -f head_sha=${{ github.event.pull_request.head.sha }} \
+            -f status=completed -f conclusion=success -f 'output[title]=fake' -f 'output[summary]=SPI-003 fake check'
