@@ -1,0 +1,9 @@
+{
+  "name": "ludex-ci-fixture",
+  "private": true,
+  "scripts": {
+    "test": "node --test test/sum.test.js",
+    "lint": "node --check src/sum.js",
+    "build": "node scripts/build.js"
+  }
+}

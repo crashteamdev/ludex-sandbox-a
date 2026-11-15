@@ -1,0 +1,12 @@
+# Second workflow that reuses the job name "smoke": two producers of the same check context.
+name: docs
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Docs smoke
+        run: echo docs ok

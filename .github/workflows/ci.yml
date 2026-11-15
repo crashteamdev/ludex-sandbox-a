@@ -1,0 +1,55 @@
+# SPI-003 fixture CI. Every job is a different "shape" of green check for the collector to classify.
+name: ci
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Unit tests
+        run: npm test
+  lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Lint
+        run: npm run lint
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Build
+        run: npm run build
+  echo:
+    name: tests-echo
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Tests
+        run: echo ok
+  optional:
+    if: ${{ false }}
+    runs-on: ubuntu-24.04
+    steps:
+      - run: npm test
+  allowed-failure:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Broken tests
+        continue-on-error: true
+        run: node --test broken/always-fails.test.js
+  masked:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Broken tests
+        run: node --test broken/always-fails.test.js || true
+  smoke:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Smoke tests
+        run: npm test
