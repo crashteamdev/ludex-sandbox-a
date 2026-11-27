@@ -1,1 +1,1 @@
-RUN-004 synthetic fixture intermediate
+RUN-004 synthetic fixture final
